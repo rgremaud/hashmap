@@ -1,4 +1,4 @@
-class Linked_list
+class LinkedList
   attr_accessor :name
 
   def initialize
