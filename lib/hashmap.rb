@@ -2,19 +2,12 @@
 
 class HashMap
   def initialize
-    @load_factor = 0.8 # Need to grow capacity when there are 16 * 0.8 = 12.8 entries
-    @capacity = 16 # total number of buckets
+    @load_factor = 0.8
+    @capacity = 16
     @buckets = Array.new(@capacity)
   end
 
   # raise IndexError if index.negative? || index >= @buckets.length
-  # create an array @buckets
-  # Put each entry inside a bucket as a Node item, which holds both the key and the value.
-  # To retrieve the value, we hash the key and calculate its bucket number.
-  # If the bucket is not empty, then we go to that bucket.
-  # Now we compare if the node’s key is the same key that was used for the retrieval.
-  # If it is, then we can return the node’s value. Otherwise, we return nil.
-  # given any number modulo by 16 we will get a number between 0 and 15.
 
   def hash(key)
     hash_code = 0
@@ -26,7 +19,7 @@ class HashMap
   end
 
   def set(key, value)
-    @capacity = @buckets.length # find a betteer place for this?  Inserting in the capcity check was brekaing things
+    @capacity = @buckets.length # find a betteer place for this?
     capacity_check
     index = hash(key) % @capacity
     node = [key, value]
@@ -42,7 +35,7 @@ class HashMap
 
   def capacity_check
     current_load = @buckets.compact.count / @buckets.length.to_f
-    return unless current_load >= @load_factor # checks if capacity needs to increase
+    return unless current_load >= @load_factor
 
     old_capacity = @capacity
     new_capacity = 2 * old_capacity
@@ -52,12 +45,21 @@ class HashMap
   end
 
   def get(key)
-    # takes one argument as a key and returns the value that is assigned to this key.
-    # If key is not found, return nil.
+    return nil if @buckets[hash(key) % @capacity].nil?
+
+    @buckets[hash(key) % @capacity][1]
   end
 
   def has?(key)
-    # takes a key as an argument and returns true or false based on whether or not the key is in the hash map.
+    if @buckets[hash(key) % @capacity].instance_of?(LinkedList)
+      current_list = @buckets[hash(key) % @capacity]
+      p current_list
+      p current_list.size
+    elsif @buckets[hash(key) % @capacity].nil?
+      false
+    elsif @buckets[hash(key) % @capacity][0] == key
+      true
+    end
   end
 
   def remove(key)
@@ -89,6 +91,5 @@ class HashMap
 
   def print_hash
     p @buckets
-    p "bucket length is #{@buckets.length}"
   end
 end

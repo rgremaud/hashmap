@@ -53,11 +53,15 @@ class LinkedList
   end
 
   def head
-    puts "Head of the list is #{@head.value}"
+    @head.value
+  end
+
+  def next_node
+    @head.next_node
   end
 
   def tail
-    puts "Tail of the list is #{@tail.value}"
+    @tail.value
   end
 
   def at(index)
@@ -149,7 +153,7 @@ class LinkedList
     current_node.next_node = new_node
   end
 
-  def remove_at(index) # doesnt work w/index of 1
+  def remove_at(index)
     if index.zero?
       @head = @head.next_node
     elsif index == 1
