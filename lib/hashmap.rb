@@ -82,7 +82,11 @@ class HashMap
     # length returns the number of stored keys in the hash map.
     length = 0
     @buckets.each do |node|
-      length += 1 if node != nil # rubocop:disable Style/NonNilCheck
+      if node.instance_of?(LinkedList)
+        length += node.size
+      elsif !node.nil?
+        length += 1
+      end
     end
     length
   end

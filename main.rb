@@ -5,8 +5,8 @@ require_relative 'lib/node'
 test = HashMap.new
 
 test.set('apple', 'red')
-# test.set('banana', 'yellow')
-# test.set('carrot', 'orange')
+test.set('banana', 'yellow')
+test.set('carrot', 'orange')
 # test.set('dog', 'brown')
 # test.set('elephant', 'gray')
 # test.set('frog', 'green')
