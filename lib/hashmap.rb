@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HashMap
   def initialize
     @load_factor = 0.8 # Need to grow capacity when there are 16 * 0.8 = 12.8 entries
@@ -23,15 +25,30 @@ class HashMap
     hash_code
   end
 
-  def set_key(key, value)
-    # check number of entries / @buckets.length
-    # if > load_factor then increase the size @buckets
-    node = [key, value]
+  def set(key, value)
+    @capacity = @buckets.length # find a betteer place for this?  Inserting in the capcity check was brekaing things
+    capacity_check
     index = hash(key) % @capacity
-    p index
-    @buckets[index] = node
-    # add logic to check for collision
-    # if there is a collision, create a linked list for that location
+    node = [key, value]
+    if @buckets[index].nil?
+      @buckets[index] = node
+    else
+      new_list = LinkedList.new
+      new_list.append(@buckets[index])
+      new_list.append(node)
+      @buckets[index] = new_list
+    end
+  end
+
+  def capacity_check
+    current_load = @buckets.compact.count / @buckets.length.to_f
+    return unless current_load >= @load_factor # checks if capacity needs to increase
+
+    old_capacity = @capacity
+    new_capacity = 2 * old_capacity
+    (new_capacity - old_capacity).times do
+      @buckets << nil
+    end
   end
 
   def get(key)
@@ -72,5 +89,6 @@ class HashMap
 
   def print_hash
     p @buckets
+    p "bucket length is #{@buckets.length}"
   end
 end

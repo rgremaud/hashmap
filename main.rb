@@ -2,10 +2,19 @@ require_relative 'lib/hashmap'
 require_relative 'lib/linkedlists'
 require_relative 'lib/node'
 
-new_hash = HashMap.new
+test = HashMap.new
 
-p new_hash.set_key('Romain', '37 year old, male') # whitney and romain create a collision
-p new_hash.set_key('Whitney', '37 year old, female')
-p new_hash.set_key('Theo', '2 year old, male')
+test.set('apple', 'red')
+test.set('banana', 'yellow')
+# test.set('carrot', 'orange')
+# test.set('dog', 'brown')
+# test.set('elephant', 'gray')
+# test.set('frog', 'green')
+# test.set('grape', 'purple')
+# test.set('hat', 'black')
+# test.set('ice cream', 'white')
+# test.set('jacket', 'blue')
+# test.set('kite', 'pink')
+# test.set('lion', 'golden')
 
-p new_hash.print_hash
+p test.print_hash
