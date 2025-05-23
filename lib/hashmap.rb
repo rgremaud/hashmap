@@ -22,13 +22,14 @@ class HashMap
     @capacity = @buckets.length # find a betteer place for this?
     capacity_check
     index = hash(key) % @capacity
-    node = [key, value]
     if @buckets[index].nil?
-      @buckets[index] = node
+      @buckets[index] = [key, value]
+    elsif @buckets[index].instance_of?(LinkedList)
+      @buckets[index].prepend(key, value)
     else
       new_list = LinkedList.new
-      new_list.append(@buckets[index])
-      new_list.append(node)
+      new_list.prepend(@buckets[index][0], @buckets[index][1])
+      new_list.prepend(key, value)
       @buckets[index] = new_list
     end
   end
@@ -47,7 +48,11 @@ class HashMap
   def get(key)
     return nil if @buckets[hash(key) % @capacity].nil?
 
-    @buckets[hash(key) % @capacity][1]
+    if @buckets[hash(key) % @capacity].instance_of?(LinkedList)
+      @buckets[hash(key) % @capacity].find_value(key)
+    else
+      @buckets[hash(key) % @capacity][1]
+    end
   end
 
   def has?(key)

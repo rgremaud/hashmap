@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LinkedList
   attr_accessor :name
 
@@ -6,28 +8,32 @@ class LinkedList
     @tail = nil
   end
 
-  def append(data)
+  def append(key, value) # updated to work w/key, value
     if @head.nil?
       @tail = Node.new
-      @tail.value = data
+      @tail.key = key
+      @tail.value = value
       @head = @tail
     else
       temp_node = Node.new
-      temp_node.value = data
+      temp_node.key = key
+      temp_node.value = value
       temp_node.next_node = nil
       @tail.next_node = temp_node
       @tail = temp_node
     end
   end
 
-  def prepend(data)
+  def prepend(key, value) # updated to work w/key, value
     if @head.nil?
       @head = Node.new
-      @head.value = data
+      @head.key = key
+      @head.value = value
       @tail = @head
     else
       temp_node = Node.new
-      temp_node.value = data
+      temp_node.key = key
+      temp_node.value = value
       temp_node.next_node = @head
       @head = temp_node
     end
@@ -108,27 +114,23 @@ class LinkedList
     value_check
   end
 
-  def find(value)
-    index = 0
+  def find_value(key)
     current_node = @head
-    return "#{current_node.value} found at index of #{index}" if current_node.value == value
+    return current_node.value if current_node.key == key
 
-    loop do
+    until current_node.next_node.nil?
       current_node = current_node.next_node
-      index += 1
-      break if current_node.value == value || current_node.next_node.nil?
+      return current_node.value if current_node.key == key
     end
 
-    return nil if current_node.next_node.nil?
-
-    "#{current_node.value} found at index of #{index}"
+    nil if current_node.next_node.nil?
   end
 
   def to_s
     string = ''
     current_node = @head
     until current_node.nil?
-      string += "( #{current_node.value} ) -> "
+      string += "( #{current_node.key}, #{current_node.value} ) -> "
       current_node = current_node.next_node
     end
     string += 'nil'
