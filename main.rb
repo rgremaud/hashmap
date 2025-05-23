@@ -17,10 +17,12 @@ test.set('hat', 'black')
 # test.set('jacket', 'blue')
 # test.set('kite', 'pink')
 # test.set('lion', 'golden')
+p test.length
 
 # p test.print_hash
-p test.get('apple')
-p test.get('hat')
-p test.get('grape')
-# p test.has?('hat')
-# p test.has?('apple')
+# p test.remove('grape')
+# p test.print_hash
+
+# p test.has?('potato')
+# p test.has?('grape')
+# p test.print_hash

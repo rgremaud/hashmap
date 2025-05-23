@@ -70,24 +70,6 @@ class LinkedList
     @tail.value
   end
 
-  def at(index)
-    index_count = 0
-    if @head.nil?
-      'List has no values'
-    elsif index == 0
-      "Current value at index value of #{index} is #{@head.value}"
-    else
-      index_count += 1
-      current_node = @head.next_node
-      loop do
-        current_node = current_node.next_node
-        index_count += 1
-        break if index_count == index || current_node.next_node.nil?
-      end
-      "Current value at index value of #{index} is #{current_node.value}"
-    end
-  end
-
   def pop
     current_node = @head
     loop do
@@ -99,14 +81,14 @@ class LinkedList
     @tail = current_node
   end
 
-  def contains?(value)
+  def contains_key?(key)
     current_node = @head
     value_check = nil
-    return true if current_node.value == value
+    return true if current_node.key == key
 
     while current_node.next_node != nil # rubocop:disable Style/NonNilCheck
       current_node = current_node.next_node
-      return true if current_node.value == value
+      return true if current_node.key == key
 
       value_check = false
 
@@ -137,42 +119,23 @@ class LinkedList
     string
   end
 
-  def insert_at(value, index)
-    current_size = size
-    target_index = 0
+  def remove_node(key)
     current_node = @head
-    prepend(value) if index.zero?
-    append(value) if index == current_size
-    puts 'Invalid index number' if index > current_size
-    loop do
-      current_node = current_node.next_node
-      target_index += 1
-      break if target_index == index - 1
-    end
-    new_node = Node.new
-    new_node.value = value
-    new_node.next_node = current_node.next_node
-    current_node.next_node = new_node
-  end
-
-  def remove_at(index)
-    if index.zero?
-      @head = @head.next_node
-    elsif index == 1
-      node_to_remove = @head.next_node
-      @head.next_node = node_to_remove.next_node
+    if current_node.key == key
+      del_value = current_node.value
+      @head = current_node.next_node
+      puts "Deleted entry's value is #{del_value}"
     else
-      current_size = size
-      target_index = 0
-      current_node = @head
-      puts 'Invalid index number' if index > current_size
-      loop do
-        current_node = current_node.next_node
-        target_index += 1
-        break if target_index == index - 1
+      while (current_node.next_node != nil) && (current_node.next_node.key != key) # rubocop:disable Style/NonNilCheck
+        if (current_node.next_node == nil) || (current_node.next_node.key == key) # rubocop:disable Style/NilComparison
+          del_value = current_node.next_node.value
+          current_node.next_node = current_node.next_node.next_node
+          puts "Deleted entry's value is #{del_value}"
+        else
+          current_node = current_node.next_node
+        end
       end
-      next_node = current_node.next_node
-      current_node.next_node = next_node.next_node
+      current_node.next_node = current_node.next_node.next_node
     end
   end
 end

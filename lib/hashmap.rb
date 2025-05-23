@@ -57,9 +57,7 @@ class HashMap
 
   def has?(key)
     if @buckets[hash(key) % @capacity].instance_of?(LinkedList)
-      current_list = @buckets[hash(key) % @capacity]
-      p current_list
-      p current_list.size
+      @buckets[hash(key) % @capacity].contains_key?(key)
     elsif @buckets[hash(key) % @capacity].nil?
       false
     elsif @buckets[hash(key) % @capacity][0] == key
@@ -69,12 +67,24 @@ class HashMap
 
   def remove(key)
     # takes a key as an argument. If the given key is in the hash map,
-    # it should remove the entry with that key and return the deleted entry’s value.
-    # If the key isn’t in the hash map, it should return nil.
+    if @buckets[hash(key) % @capacity].instance_of?(LinkedList)
+      @buckets[hash(key) % @capacity].remove_node(key)
+    elsif @buckets[hash(key) % @capacity][0] == key
+      del_value = @buckets[hash(key) % @capacity][1]
+      @buckets[hash(key) % @capacity] = nil
+      puts "Deleted entry's value is #{del_value}"
+    elsif @buckets[hash(key) % @capacity][0].nil?
+      nil
+    end
   end
 
   def length
     # length returns the number of stored keys in the hash map.
+    length = 0
+    @buckets.each do |node|
+      length += 1 if node != nil # rubocop:disable Style/NonNilCheck
+    end
+    length
   end
 
   def clear
