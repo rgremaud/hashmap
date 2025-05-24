@@ -70,17 +70,6 @@ class LinkedList
     @tail.value
   end
 
-  def pop
-    current_node = @head
-    loop do
-      current_node = current_node.next_node
-      break if current_node.next_node == @tail
-    end
-    @tail = nil
-    current_node.next_node = nil
-    @tail = current_node
-  end
-
   def contains_key?(key)
     current_node = @head
     value_check = nil
@@ -137,5 +126,12 @@ class LinkedList
       end
       current_node.next_node = current_node.next_node.next_node
     end
+  end
+
+  def list_keys
+    current_node = @head
+    keys_array = []
+    keys_array << current_node.key until current_node.key.nil?
+    keys_array
   end
 end

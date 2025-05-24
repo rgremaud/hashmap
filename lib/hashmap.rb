@@ -66,7 +66,6 @@ class HashMap
   end
 
   def remove(key)
-    # takes a key as an argument. If the given key is in the hash map,
     if @buckets[hash(key) % @capacity].instance_of?(LinkedList)
       @buckets[hash(key) % @capacity].remove_node(key)
     elsif @buckets[hash(key) % @capacity][0] == key
@@ -79,7 +78,6 @@ class HashMap
   end
 
   def length
-    # length returns the number of stored keys in the hash map.
     length = 0
     @buckets.each do |node|
       if node.instance_of?(LinkedList)
@@ -92,11 +90,22 @@ class HashMap
   end
 
   def clear
-    # clear removes all entries in the hash map.
+    @buckets = []
+    @capacity.times do
+      @buckets << nil
+    end
   end
 
   def keys
-    # keys returns an array containing all the keys inside the hash map.
+    # current returns all keys except for linked list items
+    # build a version to pull this info from linkedlist and then add them together
+    keys_array = []
+    list_keys_array = []
+    @buckets.each do |key, _value| # rubocop:disable Style/HashEachMethods
+      keys_array << key if !key.nil? && !key.instance_of?(LinkedList)
+    end
+
+    keys_array
   end
 
   def values
