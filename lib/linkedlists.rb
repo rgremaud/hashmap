@@ -8,7 +8,7 @@ class LinkedList
     @tail = nil
   end
 
-  def append(key, value) # updated to work w/key, value
+  def append(key, value)
     if @head.nil?
       @tail = Node.new
       @tail.key = key
@@ -24,7 +24,7 @@ class LinkedList
     end
   end
 
-  def prepend(key, value) # updated to work w/key, value
+  def prepend(key, value)
     if @head.nil?
       @head = Node.new
       @head.key = key
@@ -131,7 +131,30 @@ class LinkedList
   def list_keys
     current_node = @head
     keys_array = []
-    keys_array << current_node.key until current_node.key.nil?
+    until current_node.nil?
+      keys_array << current_node.key
+      current_node = current_node.next_node
+    end
     keys_array
+  end
+
+  def list_values
+    current_node = @head
+    values_array = []
+    until current_node.nil?
+      values_array << current_node.value
+      current_node = current_node.next_node
+    end
+    values_array
+  end
+
+  def list_to_array
+    current_node = @head
+    entries_array = []
+    until current_node.nil?
+      entries_array << [current_node.key, current_node.value]
+      current_node = current_node.next_node
+    end
+    entries_array
   end
 end

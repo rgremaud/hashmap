@@ -7,7 +7,7 @@ test = HashMap.new
 test.set('apple', 'red')
 test.set('banana', 'yellow')
 test.set('carrot', 'orange')
-# test.set('dog', 'brown')
+test.set('dog', 'brown')
 # test.set('elephant', 'gray')
 # test.set('frog', 'green')
 # Below two lines create a collision
@@ -18,4 +18,7 @@ test.set('hat', 'black')
 # test.set('kite', 'pink')
 # test.set('lion', 'golden')
 
-p test.keys
+# p test.print_hash
+
+# need to fix load_factor
+# need to fix remove function for linked list items

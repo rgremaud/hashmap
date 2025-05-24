@@ -97,27 +97,31 @@ class HashMap
   end
 
   def keys
-    # current returns all keys except for linked list items
-    # build a version to pull this info from linkedlist and then add them together
     keys_array = []
-    list_keys_array = []
     @buckets.each do |key, _value| # rubocop:disable Style/HashEachMethods
       keys_array << key if !key.nil? && !key.instance_of?(LinkedList)
+      keys_array << @buckets[@buckets.index(key)].list_keys if key.instance_of?(LinkedList)
     end
 
-    keys_array
+    keys_array.flatten
   end
 
   def values
-    # values returns an array containing all the values.
+    values_array = []
+    @buckets.each do |key, value|
+      values_array << value if !value.nil? && !value.instance_of?(LinkedList)
+      values_array << @buckets[@buckets.index(key)].list_values if key.instance_of?(LinkedList)
+    end
+
+    values_array.flatten
   end
 
   def entries
-    # entries returns an array that contains each key, value pair. Example:
-    # [[first_key, first_value], [second_key, second_value]]
-  end
-
-  def print_hash
-    p @buckets
+    entries_array = []
+    @buckets.each do |entry|
+      entries_array << entry if !entry.nil? && !entry.instance_of?(LinkedList)
+      entries_array << @buckets[@buckets.index(entry)].list_to_array if entry.instance_of?(LinkedList)
+    end
+    entries_array
   end
 end
