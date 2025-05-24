@@ -2,7 +2,7 @@
 
 class HashMap
   def initialize
-    @load_factor = 0.8
+    @load_factor = 0.75
     @capacity = 16
     @buckets = Array.new(@capacity)
   end

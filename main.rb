@@ -22,3 +22,5 @@ test.set('hat', 'black')
 
 # need to fix load_factor
 # need to fix remove function for linked list items
+# need to update set so if same key is entered twice, it replaces the existing keys value
+# ex: set('grape', 'purple') then set('grape', 'green') will overwrite existing key
