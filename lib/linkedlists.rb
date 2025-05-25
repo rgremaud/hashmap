@@ -110,22 +110,22 @@ class LinkedList
 
   def remove_node(key)
     current_node = @head
+    del_value = ''
     if current_node.key == key
       del_value = current_node.value
       @head = current_node.next_node
-      puts "Deleted entry's value is #{del_value}"
     else
+      del_value = current_node.next_node.value
       while (current_node.next_node != nil) && (current_node.next_node.key != key) # rubocop:disable Style/NonNilCheck
         if (current_node.next_node == nil) || (current_node.next_node.key == key) # rubocop:disable Style/NilComparison
-          del_value = current_node.next_node.value
           current_node.next_node = current_node.next_node.next_node
-          puts "Deleted entry's value is #{del_value}"
         else
           current_node = current_node.next_node
         end
       end
       current_node.next_node = current_node.next_node.next_node
     end
+    puts "Deleted entry's value was #{del_value}"
   end
 
   def list_keys

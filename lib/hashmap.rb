@@ -19,23 +19,27 @@ class HashMap
   end
 
   def set(key, value)
-    @capacity = @buckets.length # find a betteer place for this?
-    capacity_check
-    index = hash(key) % @capacity
-    if @buckets[index].nil?
-      @buckets[index] = [key, value]
-    elsif @buckets[index].instance_of?(LinkedList)
-      @buckets[index].prepend(key, value)
+    if has?(key) == true
+      puts 'That key exists'
     else
-      new_list = LinkedList.new
-      new_list.prepend(@buckets[index][0], @buckets[index][1])
-      new_list.prepend(key, value)
-      @buckets[index] = new_list
+      @capacity = @buckets.length # find a betteer place for this?
+      capacity_check
+      index = hash(key) % @capacity
+      if @buckets[index].nil?
+        @buckets[index] = [key, value]
+      elsif @buckets[index].instance_of?(LinkedList)
+        @buckets[index].prepend(key, value)
+      else
+        new_list = LinkedList.new
+        new_list.prepend(@buckets[index][0], @buckets[index][1])
+        new_list.prepend(key, value)
+        @buckets[index] = new_list
+      end
     end
   end
 
   def capacity_check
-    current_load = @buckets.compact.count / @buckets.length.to_f
+    current_load = length / @buckets.length.to_f
     return unless current_load >= @load_factor
 
     old_capacity = @capacity
