@@ -18,9 +18,5 @@ test.set('kite', 'pink')
 test.set('lion', 'golden')
 test.set('moon', 'silver')
 
-p test.entries
-p test.length
-
-# need to update set so if same key is entered twice, it replaces the existing keys value
-# ex: set('grape', 'purple') then set('grape', 'green') will overwrite existing key
-#
+p test.values
+p test.keys

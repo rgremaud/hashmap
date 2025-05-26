@@ -7,22 +7,24 @@ class HashMap
     @buckets = Array.new(@capacity)
   end
 
-  # raise IndexError if index.negative? || index >= @buckets.length
-
   def hash(key)
     hash_code = 0
     prime_number = 31
 
-    key.each_char { |char| hash_code = prime_number * hash_code + char.ord }
+    key.to_s.each_char { |char| hash_code = prime_number * hash_code + char.ord }
 
     hash_code
   end
 
   def set(key, value)
     if has?(key) == true
-      puts 'That key exists'
+      if @buckets[hash(key) % @capacity].instance_of?(LinkedList)
+        @buckets[hash(key) % @capacity].update_node(key, value)
+      else
+        @buckets[hash(key) % @capacity][1] = value
+      end
     else
-      @capacity = @buckets.length # find a betteer place for this?
+      @capacity = @buckets.length
       capacity_check
       index = hash(key) % @capacity
       if @buckets[index].nil?
@@ -42,11 +44,11 @@ class HashMap
     current_load = length / @buckets.length.to_f
     return unless current_load >= @load_factor
 
-    old_capacity = @capacity
-    new_capacity = 2 * old_capacity
-    (new_capacity - old_capacity).times do
-      @buckets << nil
-    end
+    @capacity *= 2
+    current_entries = entries
+    clear
+    @buckets = Array.new(@capacity)
+    current_entries.each { |key, value| set(key, value) }
   end
 
   def get(key)
@@ -101,30 +103,28 @@ class HashMap
   end
 
   def keys
-    keys_array = []
-    @buckets.each do |key, _value| # rubocop:disable Style/HashEachMethods
-      keys_array << key if !key.nil? && !key.instance_of?(LinkedList)
-      keys_array << @buckets[@buckets.index(key)].list_keys if key.instance_of?(LinkedList)
-    end
-
-    keys_array.flatten
+    entries_array = entries
+    keys = []
+    entries_array.each { |node| keys << node[0] }
+    keys
   end
 
   def values
-    values_array = []
-    @buckets.each do |key, value|
-      values_array << value if !value.nil? && !value.instance_of?(LinkedList)
-      values_array << @buckets[@buckets.index(key)].list_values if key.instance_of?(LinkedList)
-    end
-
-    values_array.flatten
+    entries_array = entries
+    values = []
+    entries_array.each { |node| values << node[1] }
+    values
   end
 
   def entries
     entries_array = []
     @buckets.each do |entry|
-      entries_array << entry if !entry.nil? && !entry.instance_of?(LinkedList)
-      entries_array << @buckets[@buckets.index(entry)].list_to_array if entry.instance_of?(LinkedList)
+      if !entry.nil? && !entry.instance_of?(LinkedList)
+        entries_array << entry
+      elsif entry.instance_of?(LinkedList)
+        list_array = @buckets[@buckets.index(entry)].list_to_array
+        list_array.each { |node| @buckets << node }
+      end
     end
     entries_array
   end
