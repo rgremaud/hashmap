@@ -74,11 +74,11 @@ set(key, value) {
         const node = new Node([key, value]);
         // append it to the linked list
         this.array[bucket].append(node);
-        console.log(this.array[bucket].head.value.nextNode);
+        console.log(this.array[bucket].head.value.value);
     // if key exists in bucket, replace with new value
-    } else if (this.array[bucket].head !== null && this.array[bucket].head.value[0] === key) {
-        this.array[bucket].head.value[1] = value;
-        // console.log(this.array[bucket].head)
+    } else if (this.array[bucket].head !== null && this.array[bucket].head.value.value[0] === key) {
+        this.array[bucket].head.value.value[1] = value;
+        console.log(this.array[bucket].head.value.value);
     // else if bucket is not empty, create a linked list
     } else {
         const node = new Node([key, value]);

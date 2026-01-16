@@ -4,4 +4,4 @@ const hashMap = new HashMap();
 
 hashMap.set("Romain", "Test");
 
-// hashMap.set("Romain", "Poo");
+hashMap.set("Romain", "Poo");
