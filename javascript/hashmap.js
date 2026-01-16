@@ -72,13 +72,13 @@ set(key, value) {
     if (this.array[bucket].head === null ) {
         // create a node
         const node = new Node([key, value]);
-        // assign it as head
-        this.array[bucket].append(node)
-        console.log(this.array[bucket].head)
+        // append it to the linked list
+        this.array[bucket].append(node);
+        console.log(this.array[bucket].head.value.nextNode);
     // if key exists in bucket, replace with new value
     } else if (this.array[bucket].head !== null && this.array[bucket].head.value[0] === key) {
         this.array[bucket].head.value[1] = value;
-        console.log(this.array[bucket])
+        // console.log(this.array[bucket].head)
     // else if bucket is not empty, create a linked list
     } else {
         const node = new Node([key, value]);
