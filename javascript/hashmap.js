@@ -5,11 +5,14 @@ It should have at least two variables for load factor and capacity.
 For a load factor of 0.75 you should have an initial capacity of size 16. Then proceed to create the following methods:
 */
 
+import { LinkedList } from "./linked_list.js"
+import { Node } from "./node.js"
+
 export class HashMap {
     constructor() {
         this.loadFactor = 0.75;
         this.capacity = 16;
-        this.array = new Array(16);
+        this.array = new Array(16).fill(new LinkedList());
     }
 
     /*
@@ -65,15 +68,23 @@ set(key, value) {
     // use key to figure out the bucket to store the data in
     const bucket = this.hash(key);
 
+    // if bucket is empty, set the value
+    if (this.array[bucket].head === null ) {
+        // create a node
+        const node = new Node([key, value]);
+        // assign it as head
+        this.array[bucket].append(node)
+        console.log(this.array[bucket].head)
     // if key exists in bucket, replace with new value
-    if (this.array[bucket] === undefined ) {
-        this.array[bucket] = [key, value];
-        console.log(this.array)
-    } else if (this.array[bucket] !== undefined && this.array[bucket][0] === key) {
-        this.array[bucket][1] = value;
-        console.log(this.array)
+    } else if (this.array[bucket].head !== null && this.array[bucket].head.value[0] === key) {
+        this.array[bucket].head.value[1] = value;
+        console.log(this.array[bucket])
+    // else if bucket is not empty, create a linked list
+    } else {
+        const node = new Node([key, value]);
+        this.array[bucket].append(node)
+        console.log(this.array[bucket].head)
     }
-    // else if bucket is empty
     
 }
 

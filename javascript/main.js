@@ -2,6 +2,6 @@ import { HashMap } from "./hashmap.js"
 
 const hashMap = new HashMap();
 
+hashMap.set("Romain", "Test");
 
-console.log(hashMap.set("Romain", "Poo"));
-console.log(hashMap.set("Romain", "Caca"));
+hashMap.set("Whitney", "Poo");
