@@ -104,6 +104,7 @@ class LinkedList {
 
   contains(key) {
     let node = this.head;
+    let keyFound = false;
 
     if (node === null) {
       return false;
@@ -112,18 +113,18 @@ class LinkedList {
     while (node !== null) {
       if (node.key === key) {
         return node;
-      } else {
-        return false;
       }
       node = node.nextNode;
     }
+
+    return keyFound;
   }
 
-  findIndex(value) {
+  findIndex(key) {
     let counter = 0;
     let node = this.head;
     while (node !== null) {
-      if (node.value === value) {
+      if (node.key === key) {
         return counter;
       }
       counter += 1;
@@ -194,15 +195,11 @@ class LinkedList {
 
       previousNode.nextNode = nodeToRemove.nextNode;
 
-      if (previousNode === this.tail) {
-        this.tail = newNodes[newNodes.length - 1];
-      }
+      // ** Removed for hashmap but double check this is accurate **
+      // if (previousNode === this.tail) {
+      //   this.tail = newNodes[newNodes.length - 1];
+      // }
     }
   }
 
-  test() {
-    const node = this.head;
-    console.log(node.nextNode.nextNode);
-    console.log(node.nextNode.value);
-  }
 }
