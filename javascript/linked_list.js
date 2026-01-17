@@ -102,11 +102,16 @@ class LinkedList {
     }
   }
 
-  contains(value) {
+  contains(key) {
     let node = this.head;
-    while (node.nextNode !== null) {
-      if (node.value === value) {
-        return true;
+
+    if (node === null) {
+      return false;
+    }
+
+    while (node !== null) {
+      if (node.key === key) {
+        return node;
       } else {
         return false;
       }
@@ -128,10 +133,10 @@ class LinkedList {
   }
 
   toString() {
-    let string = ""
+    let string = "";
     let node = this.head;
     while (node !== null) {
-      string = string + ` ( ${node.value} ) ->`
+      string = string + ` ( ${node.value} ) ->`;
       node = node.nextNode;
     }
     string += " null";
@@ -140,50 +145,52 @@ class LinkedList {
 
   insertAt(index, ...values) {
     // create a node for each of the added values
-    const newNodes = []
+    const newNodes = [];
     values.forEach((value) => {
       const node = new Node(value);
       newNodes.push(node);
-    })
+    });
     // define nextNode for all newNodes except last one
     newNodes.forEach((node) => {
       if (newNodes.indexOf(node) <= newNodes.length - 2) {
-        node.nextNode = newNodes[newNodes.indexOf(node) + 1]
+        node.nextNode = newNodes[newNodes.indexOf(node) + 1];
       }
-    })
+    });
 
     // define the insertion point and insert new nodes
     if (index < 0 || index > this.size()) {
-      return RangeError
+      return RangeError;
     } else if (index === 0) {
       const shiftNode = this.head;
       newNodes[newNodes.length - 1].nextNode = shiftNode;
       this.head = newNodes[0];
     } else if (index === this.size) {
-      const currentTail = this.tail
-      currentTail.nextNode = newNodes[0]
+      const currentTail = this.tail;
+      currentTail.nextNode = newNodes[0];
 
       this.tail = newNodes[newNodes.length - 1];
     } else {
       const insertionNode = this.nodeAt(index - 1);
-      const shiftNode = this.nodeAt(index)
+      const shiftNode = this.nodeAt(index);
 
-      insertionNode.nextNode = newNodes[0]
+      insertionNode.nextNode = newNodes[0];
       newNodes[newNodes.length - 1].nextNode = shiftNode;
     }
   }
 
   removeAt(index) {
     if (index < 0 || index > this.size()) {
-      return RangeError
+      return RangeError;
     } else if (index === 0) {
-      const newHead = this.head.nextNode
-      this.head = newHead
+      const newHead = this.head.nextNode;
+      this.head = newHead;
     } else if (index >= 0) {
       const previousNode = this.nodeAt(index - 1);
       const nodeToRemove = this.nodeAt(index);
 
-      if (nodeToRemove === this.tail) { this.tail = previousNode }
+      if (nodeToRemove === this.tail) {
+        this.tail = previousNode;
+      }
 
       previousNode.nextNode = nodeToRemove.nextNode;
 
@@ -194,9 +201,8 @@ class LinkedList {
   }
 
   test() {
-    const node = this.head
-    console.log(node.nextNode.nextNode)
-    console.log(node.nextNode.value)
+    const node = this.head;
+    console.log(node.nextNode.nextNode);
+    console.log(node.nextNode.value);
   }
-
 }
