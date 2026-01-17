@@ -8,8 +8,8 @@ class LinkedList {
     this.tail = null;
   }
 
-  append(value) {
-    const node = new Node(value);
+  append(node) {
+    // const node = new Node(value);
 
     if (this.head === null) {
       this.head = node;
