@@ -5,17 +5,8 @@ export class HashMap {
     constructor(loadFactor = 0.75, capacity = 16) {
         this.loadFactor = loadFactor;
         this.capacity = capacity;
-        // this.array = new Array(capacity).fill(new LinkedList());
         this.array = Array.from(Array(16), () => new LinkedList());
     }
-
-    // createLinkedLists() {
-    //     this.array.forEach((input) => {
-    //         const list = new LinkedList();
-    //         input.push(list);
-    //         console.log("This fired")
-    //     })
-    // }
 
     hash(key) {
         let hashCode = 0;
@@ -97,15 +88,20 @@ export class HashMap {
         // iterate over each bucket for total size via linked_list functions
         let length = 0;
         this.array.forEach((bucket) =>
-            console.log(bucket)
-            // length += bucket.size()
+            length += bucket.size()
         )
         return length;
     }
 
     /*    
         clear() removes all entries in the hash map.
-        
+    */
+    clear() {
+        this.array = Array.from(Array(16), () => new LinkedList());
+        console.log(this.array)
+    }
+
+    /*
         keys() returns an array containing all the keys inside the hash map.
         
         values() returns an array containing all the values.
