@@ -8,8 +8,12 @@ hashMap.set("Theo", "Theo");
 hashMap.set("Whitney", "Peepee");
 
 
-console.log(hashMap.length());
-hashMap.clear();
-console.log(hashMap.length());
+// console.log(hashMap.length());
+// hashMap.clear();
+// console.log(hashMap.length());
+
+console.log(hashMap.keys());
+console.log(hashMap.values());
+console.log(hashMap.entries());
 
 

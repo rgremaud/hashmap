@@ -60,12 +60,6 @@ export class HashMap {
         }
     }
 
-
-    /*  
-        remove(key) takes a key as an argument. If the given key is in the hash map, 
-        it should remove the entry with that key and return true. If the key isn’t in the hash map, it should return false.
-        works for head of list and seems to work for tail
-    */
     remove(key) {
         const bucket = this.array[this.hash(key)];
         // if bucket.findIndex(key) !== -1
@@ -81,11 +75,7 @@ export class HashMap {
         }
     }
 
-    /*
-        length() returns the number of stored keys in the hash map.
-    */
     length() {
-        // iterate over each bucket for total size via linked_list functions
         let length = 0;
         this.array.forEach((bucket) =>
             length += bucket.size()
@@ -93,23 +83,43 @@ export class HashMap {
         return length;
     }
 
-    /*    
-        clear() removes all entries in the hash map.
-    */
     clear() {
         this.array = Array.from(Array(16), () => new LinkedList());
-        console.log(this.array)
     }
 
-    /*
-        keys() returns an array containing all the keys inside the hash map.
+    keys() { 
+        const keyArray = []
+        this.array.forEach((bucket) => {
+            const keys = bucket.arrayKeys();
+            keyArray.push(keys);
+        })
         
-        values() returns an array containing all the values.
+        const flatKey = keyArray.flat();
+
+        return flatKey;
+    }
+
+    values() { 
+        const valueArray = [];
+        this.array.forEach((bucket) => {
+            const keys = bucket.arrayValues();
+            valueArray.push(keys);
+        })
         
-        entries() returns an array that contains each key, value pair. Example: [[firstKey, firstValue], [secondKey, secondValue]]
+        const flatKey = valueArray.flat();
+
+        return flatKey;
+    }
+
+   entries() {
+    const entriesArray = [];
+    this.array.forEach((bucket) => {
+            const keys = bucket.arrayEntries();
+            entriesArray.push(keys);
+        })
         
-        Remember that a hash map does not preserve insertion order when you are retrieving your hash map’s data. 
-        It is normal and expected for keys and values to appear out of the order you inserted them in.
-        
-        */
+        const flatKey = entriesArray.flat();
+
+        return flatKey;
+   }
 }

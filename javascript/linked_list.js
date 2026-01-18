@@ -144,6 +144,40 @@ class LinkedList {
     return string;
   }
 
+  arrayKeys() {
+    const array = [];
+    let node = this.head;
+    while (node !== null) {
+      array.push(node.key)
+      node = node.nextNode;
+    }
+
+    return array;
+  }
+
+  arrayValues() {
+    const array = [];
+    let node = this.head;
+    while (node !== null) {
+      array.push(node.value)
+      node = node.nextNode;
+    }
+
+    return array;
+  }
+
+  arrayEntries() {
+    const array = [];
+    let node = this.head;
+    while (node !== null) {
+      array.push([node.key, node.value])
+      node = node.nextNode;
+    }
+
+    return array;
+
+  }
+
   insertAt(index, ...values) {
     // create a node for each of the added values
     const newNodes = [];
