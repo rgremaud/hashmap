@@ -5,7 +5,7 @@ export class HashMap {
     constructor(loadFactor = 0.75, capacity = 16) {
         this.loadFactor = loadFactor;
         this.capacity = capacity;
-        this.array = Array.from(Array(16), () => new LinkedList());
+        this.array = Array.from(Array(capacity), () => new LinkedList());
     }
 
     hash(key) {
@@ -21,12 +21,6 @@ export class HashMap {
         return hashCode;
     }
 
-    // need to re-work to test the loadFactor / capacity and then re-work the hash by expanding
-    // implement the growth at end after other functions built
-    // maximum capacity is calculated by loadFactor * capacity
-    // example, .75 * 16 = 12
-    // so on 13th entry you will increase the capacity by a fatcor 2
-    // this will require re-hashing everything
     set(key, value) {
         const bucket = this.array[this.hash(key)];
 
@@ -36,6 +30,18 @@ export class HashMap {
         } else {
             const node = new Node(key, value);
             bucket.append(node);
+        }
+
+        const totalEntries = this.length()
+        
+        if (totalEntries >= this.loadFactor * this.capacity) { 
+            const allEntries = this.entries()
+            this.clear();
+            this.capacity *= 2;
+            this.array = Array.from(Array(this.capacity), () => new LinkedList());
+            allEntries.forEach((entry) => {
+                this.set(entry[0], entry[1]);
+            })
         }
     }
 

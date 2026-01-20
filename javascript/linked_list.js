@@ -229,7 +229,7 @@ class LinkedList {
 
       previousNode.nextNode = nodeToRemove.nextNode;
 
-      // ** Removed for hashmap but double check this is accurate **
+      // ** Removed for hashmap, double check this is accurate **
       // if (previousNode === this.tail) {
       //   this.tail = newNodes[newNodes.length - 1];
       // }
