@@ -7,7 +7,7 @@ export class HashSet {
         this.capacity = capacity;
         this.array = Array.from(Array(capacity), () => new LinkedList());
     }
-    // good
+    
     hash(key) {
         let hashCode = 0;
 
@@ -53,18 +53,14 @@ export class HashSet {
             return false;
         }
     }
-    // good - double check ** stopping point
+    
     remove(key) {
         const bucket = this.array[this.hash(key)];
-        // if bucket.findIndex(key) !== -1
         if (bucket.findIndex(key) !== -1) {
             const index = bucket.findIndex(key);
-            console.log(bucket);
             bucket.removeAt(index);
-            console.log(bucket);
             return true
         } else {
-            console.log(bucket.findIndex(key))
             return false;
         }
     }

@@ -68,15 +68,11 @@ export class HashMap {
 
     remove(key) {
         const bucket = this.array[this.hash(key)];
-        // if bucket.findIndex(key) !== -1
         if (bucket.findIndex(key) !== -1) {
             const index = bucket.findIndex(key);
-            console.log(bucket);
             bucket.removeAt(index);
-            console.log(bucket);
             return true
         } else {
-            console.log(bucket.findIndex(key))
             return false;
         }
     }

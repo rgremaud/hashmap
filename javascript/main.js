@@ -20,9 +20,24 @@ import { HashSet } from "./hashset.js";
 // console.log(test.capacity)
 
 const test = new HashSet();
-test.set("Romain");
-console.log(test.has("Romain"));
-console.log(test.has("w"));
+test.set('apple')
+test.set('banana')
+test.set('carrot')
+test.set('dog')
+test.set('elephant')
+test.set('frog')
+test.set('grape')
+test.set('hat')
+test.set('ice cream')
+test.set('jacket')
+test.set('kite')
+console.log(test.capacity)
+test.set('lion')
+test.set('moon')
+console.log(test.capacity)
+
+
+
 
 
 
